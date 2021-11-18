@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import OmdbApi.OmdbController;
+import OmdbApi.OmdbWebServiceClient;
+import OmdbApi.OmdbController;
+import java.util.Scanner;
+
 //want to be json so use RestController
 @RestController
 public class MovieRestController {
@@ -20,6 +25,10 @@ public class MovieRestController {
     //http://localhost:8080/movies?title="INSERT TITLE HERE"
     @GetMapping("/movies")
     Movie title(@RequestParam(defaultValue = "null") String title) {
-        return new Movie(counter.incrementAndGet(), String.format(template, title), "null", 0);
+        String inputTitle = "whiplash";
+        String response = OmdbWebServiceClient.searchMovieByTitle(inputTitle, "fe57eabc");
+        OmdbController test = new OmdbController(response);
+        return new Movie(counter.incrementAndGet(), test.getJsonResponse(), String.format(template, title), 0);
+        // return new Movie(counter.incrementAndGet(), String.format(template, title), test.getJsonResponse(), 0);
     }
 }

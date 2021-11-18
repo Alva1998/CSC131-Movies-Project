@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+// import OmdbApi.OmdbController;
 
 public class OmdbWebServiceClient {
     public static final String SEARCH_URL = "http://www.omdbapi.com/?s=TITLE&apikey=APIKEY";
@@ -60,9 +61,11 @@ public class OmdbWebServiceClient {
 
     public static void main (String[] args) {
         //returns all movies with "batman" in the title
-        String title = "call getTitle function";
-        String jsonResponse = OmdbWebServiceClient.searchMovieByTitle("avengers", "fe57eabc");
-        System.out.println(jsonResponse);
+        String title = "batman";
+        String response = OmdbWebServiceClient.searchMovieByTitle(title, "fe57eabc");
+        OmdbController jsonStuff = new OmdbController(response);
+        
+        System.out.println(jsonStuff.getJsonResponse());
 
         //searching by imdb id
 //        jsonResponse = OmdbWebServiceClient.searchMovieByImdb("tt0372784", "fe57eabc");
